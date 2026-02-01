@@ -13,7 +13,7 @@ class Mechanics(PhysicsFormuls):
         return f"Это формулы по физике на тему Механика:\nS(расстояние) = {self._S}км\nt(время) = {self._t}ч\nV(скорость) = {self._V}км/ч"
 
     def speed(self):
-        if 0 != self._t != 0.0:
+        if self._t > 0:
             return self._S / self._t
         else:
             raise ZeroDivisionError("На ноль делить нельзя!")
@@ -22,16 +22,13 @@ class Mechanics(PhysicsFormuls):
         return f"V(скорость) = {self.speed()}км/ч, при данных: S(расcтояние) = {self._S}км, t(время) = {self._t}ч"
 
     def distance(self):
-        if 0 != self._t != 0.0:
-            return self._V * self._t
-        else:
-            raise ZeroDivisionError("На ноль делить нельзя!")
+        return self._V * self._t
 
     def get_distance(self):
         return f"S(расcтояние) = {self.distance()}км, при данных: V(скорость) = {self._V}км/ч, t(время) = {self._t}ч"
 
     def time(self):
-        if 0 != self._V != 0.0:
+        if self._V > 0:
             return self._S / self._V
         else:
             raise ZeroDivisionError("На ноль делить нельзя!")
@@ -58,14 +55,6 @@ class Mechanics(PhysicsFormuls):
             raise TypeError("Не правильный тип данных !")
 
 
-def open_file():
-    with open("formulas_file.txt", "w", encoding="utf-8") as file:
-        file.readlines()
-
-
-S = Mechanics(t=40, V=32)
-
-print(S)
-task = S.get_distance()
-
-print(task)
+def save_file(text):
+    with open("formulas_file.txt", "a", encoding="utf-8") as file:
+        file.write(f"\n{text}\n")
